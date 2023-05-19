@@ -6,6 +6,8 @@ import '../constants/constants.dart';
 class Oauth2ClientExample {
   Future<void> login() async {
     print(">>> login 1");
+
+    // =============== Private Cloud ===============
     var client = OAuth2Client(
         authorizeUrl: "https://login.microsoftonline.com/6f6e064e-a5f9-43b9-8c9e-89b406c292a0/oauth2/v2.0/authorize",
         tokenUrl: "https://login.microsoftonline.com/6f6e064e-a5f9-43b9-8c9e-89b406c292a0/oauth2/v2.0/token",
@@ -19,6 +21,7 @@ class Oauth2ClientExample {
           "api://67de2c10-d7d2-423b-bde9-a68526bb150a/User.Read"
         ]);
 
+    // =============== KS Cloud ===============
     // var client = OAuth2Client(
     //     authorizeUrl: "https://login.microsoftonline.com/c613c614-6e82-4ad4-8307-a3ce9732a9f8/oauth2/v2.0/authorize",
     //     tokenUrl: "https://login.microsoftonline.com/c613c614-6e82-4ad4-8307-a3ce9732a9f8/oauth2/v2.0/token",

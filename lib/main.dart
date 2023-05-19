@@ -1,9 +1,16 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:test_oauth2/http/call_api.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 import 'oauth2/Oauth2ClientExample.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -52,6 +59,26 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+  void _setPushNotification() async {
+    final fcm = FirebaseMessaging.instance;
+    await fcm.requestPermission();
+    final token = await fcm.getToken();
+    fcm.subscribeToTopic("MEA");
+    print("notification token1 : $token");
+
+    final fcm2 = FirebaseMessaging.instance;
+    fcm2.subscribeToTopic("ANOTHER-TOPIC");
+    final token2 = await fcm2.getToken();
+    print("notification token2 : $token2");
+
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _setPushNotification();
+  }
 
   void _incrementCounter() {
     Oauth2ClientExample dd = Oauth2ClientExample();
